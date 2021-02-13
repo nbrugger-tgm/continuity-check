@@ -1,3 +1,13 @@
+## v0.3.0 (2021-02-13)
+
+### Feat
+
+- change short formating
+
+### Fix
+
+- missing linebreak
+
 ## v0.2.7 (2021-02-13)
 
 ### Fix
