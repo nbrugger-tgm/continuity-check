@@ -59,7 +59,7 @@ public class Main {
 									 .toLowerCase()
 									 .endsWith(".png")))
 			);
-			System.out.print((shorter?"\t":"")+"Found " + files.length + " images"+ (shorter?"":"\n"));
+			System.out.println((shorter?"\t":"")+"Found " + files.length + " images");
 			SortedMap<LocalDate, List<File>> map = new TreeMap<>();
 			System.out.print("Scan : ");
 			for (int i = 0; i < files.length; i++) {
