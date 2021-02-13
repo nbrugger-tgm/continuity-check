@@ -19,7 +19,7 @@ import java.util.stream.IntStream;
 public class Main {
 	public static void main(String[] args) throws IOException, ImageProcessingException {
 		System.out.println("+----------------------+");
-		System.out.println("|continutiy-check 0.2.3|");
+		System.out.println("|continutiy-check 0.2.4|");
 		System.out.println("+----------------------+");
 		Scanner s = new Scanner(System.in);
 		System.out.print("Folder to scan > ");
