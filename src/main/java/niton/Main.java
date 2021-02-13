@@ -26,6 +26,8 @@ public class Main {
 		boolean subs = s.nextLine().equalsIgnoreCase("y");
 		System.out.print("Use indentation (y/n) >");
 		boolean indent = s.nextLine().equalsIgnoreCase("y");
+		System.out.print("Short output (y/n) >");
+		boolean shorter = s.nextLine().equalsIgnoreCase("y");
 
 		File[] folders;
 		if (subs) {
@@ -35,7 +37,7 @@ public class Main {
 		}
 		Arrays.parallelSort(folders, Comparator.comparing(File::getAbsolutePath));
 		for (File file : folders) {
-			System.out.println("\nAnalysis > " + file);
+			System.out.print("\nAnalysis > " + file + (shorter?"":"\n"));
 			File[] files = file.listFiles(
 					f -> (f.isFile() &&
 							(f.getAbsolutePath()
@@ -48,12 +50,13 @@ public class Main {
 									 .toLowerCase()
 									 .endsWith(".png")))
 			);
-			System.out.println("Found " + files.length + " images");
+			System.out.print((shorter?"\t":"")+"Found " + files.length + " images"+ (shorter?"":"\n"));
 			SortedMap<LocalDate, List<File>> map = new TreeMap<>();
 			System.out.print("Scan : ");
 			for (int i = 0; i < files.length; i++) {
 				File f = files[i];
 				System.out.print("\rScan : " + f.getName());
+				System.out.print("\r");
 				try {
 					Metadata metadata = ImageMetadataReader.readMetadata(f);
 					ExifSubIFDDirectory directory = metadata.getFirstDirectoryOfType(
@@ -68,19 +71,20 @@ public class Main {
 					}
 					map.get(key).add(f);
 				} catch (Exception e) {
-					System.out.println("Error on this file(" + f + ") : " + e);
+					if(!shorter)
+						System.out.println("Error on this file(" + f + ") : " + e);
 				}
 			}
 			DateTimeFormatter form = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
 			for (Map.Entry<LocalDate, List<File>> day : map.entrySet()) {
 				try {
 					day.getValue().sort(Comparator.comparingLong(Main::getFileCreationEpoch));
-					System.out.println("\n"+form.format(day.getKey()) + " : ");
+					System.out.print("\n"+form.format(day.getKey()) + " : "+ (shorter?"":"\n"));
 					System.out.println((indent ? "\t" : "") + "Files : " + day.getValue().size());
 					File first = day.getValue().get(0);
-					System.out.println((indent ? "\t" : "") + "First : " + first.getName());
+					System.out.print((indent ? "\t" : "") + "First : " + first.getName()+ (shorter?"":"\n"));
 					File last = day.getValue().get(day.getValue().size() - 1);
-					System.out.println((indent ? "\t" : "") + "Last  : " + last.getName());
+					System.out.print((indent ? "\t" : "") + "Last  : " + last.getName()+ (shorter?"":"\n"));
 					int start = parse(first), end = parse(last);
 					System.out.println((indent ? "\t" : "") + "Missing: " + (((end - start) + 1) - day
 							.getValue()
@@ -89,17 +93,19 @@ public class Main {
 					                        .stream()
 					                        .map(Main::parse)
 					                        .collect(Collectors.toList());
-					if (indent) {
-						for (int i = start; i < end; i++) {
-							if (!numbs.contains(i)) {
-								System.out.println("\t\t> " + i);
+					if(!shorter)
+						if (indent) {
+							for (int i = start; i < end; i++) {
+								if (!numbs.contains(i)) {
+									System.out.println("\t\t> " + i);
+								}
 							}
+						} else {
+							System.out.println(IntStream.range(start,end).filter((i)->!numbs.contains(i)).mapToObj(String::valueOf).collect(Collectors.joining(", ")));
 						}
-					} else {
-						System.out.println(IntStream.range(start,end).filter((i)->!numbs.contains(i)).mapToObj(String::valueOf).collect(Collectors.joining(", ")));
-					}
 				} catch (Exception e) {
-					System.out.println("Failure interpreting a file from " + day.getKey());
+					if(!shorter)
+						System.out.println("Failure interpreting a file from " + day.getKey());
 				}
 			}
 		}
