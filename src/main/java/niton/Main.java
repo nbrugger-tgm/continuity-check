@@ -23,6 +23,10 @@ public class Main {
 		System.out.println("+----------------------+");
 		Scanner s = new Scanner(System.in);
 		System.out.print("Folder to scan > ");
+		String path = s.nextLine();
+		String os= System.getProperty("system.os").toLowerCase();
+		if(path.contains(":") && (os.contains("unix") || os.contains("linux") || os.contains("buntu")))
+			os.replace(os.subSequence(0,3),"/mnt/"+Character.toLowerCase(os.charAt(0)));
 		File folder = new File(s.nextLine());
 		System.out.print("Visit subfolders (y/n) >");
 		boolean subs = s.nextLine().equalsIgnoreCase("y");
