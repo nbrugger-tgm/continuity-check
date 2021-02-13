@@ -46,7 +46,7 @@ public class Main {
 		}
 		Arrays.parallelSort(folders, Comparator.comparing(File::getAbsolutePath));
 		for (File file : folders) {
-			System.out.print("\nAnalysis > " + file + (shorter?"":"\n"));
+			System.out.print("\nAnalysis > " + file + (shorter?"\t":"\n"));
 			File[] files = file.listFiles(
 					f -> (f.isFile() &&
 							(f.getAbsolutePath()
@@ -59,11 +59,11 @@ public class Main {
 									 .toLowerCase()
 									 .endsWith(".png")))
 			);
-			System.out.println((shorter?"\t":"")+"Found " + files.length + " images");
+			assert files != null;
+			System.out.println("Found " + files.length + " images");
 			SortedMap<LocalDate, List<File>> map = new TreeMap<>();
 			System.out.print("Scan : ");
-			for (int i = 0; i < files.length; i++) {
-				File f = files[i];
+			for (File f : files) {
 				System.out.print("\rScan : " + f.getName());
 				System.out.print("\r");
 				try {
@@ -80,7 +80,7 @@ public class Main {
 					}
 					map.get(key).add(f);
 				} catch (Exception e) {
-					if(!shorter)
+					if (!shorter)
 						System.out.println("Error on this file(" + f + ") : " + e);
 				}
 			}
@@ -88,12 +88,12 @@ public class Main {
 			for (Map.Entry<LocalDate, List<File>> day : map.entrySet()) {
 				try {
 					day.getValue().sort(Comparator.comparingLong(Main::getFileCreationEpoch));
-					System.out.print("\n"+form.format(day.getKey()) + " : "+ (shorter?"":"\n"));
+					System.out.print("\n"+form.format(day.getKey()) + " : "+ (shorter?"\t":"\n"));
 					System.out.println((indent ? "\t" : "") + "Files : " + day.getValue().size());
 					File first = day.getValue().get(0);
-					System.out.print((indent ? "\t" : "") + "First : " + first.getName()+ (shorter?"":"\n"));
+					System.out.print((indent ? "\t" : "") + "First : " + first.getName()+ (shorter?"\t":"\n"));
 					File last = day.getValue().get(day.getValue().size() - 1);
-					System.out.print((indent ? "\t" : "") + "Last  : " + last.getName()+ (shorter?"":"\n"));
+					System.out.print((indent ? "\t" : "") + "Last  : " + last.getName()+ (shorter?"\t":"\n"));
 					int start = parse(first), end = parse(last);
 					System.out.println((indent ? "\t" : "") + "Missing: " + (((end - start) + 1) - day
 							.getValue()
