@@ -26,7 +26,7 @@ public class Main {
 		String path = s.nextLine();
 		String os= System.getProperty("os.name").toLowerCase();
 		if(path.contains(":") && (os.contains("unix") || os.contains("linux") || os.contains("buntu")))
-			os.replace(os.subSequence(0,3),"/mnt/"+Character.toLowerCase(os.charAt(0)));
+			os = os.replace(os.subSequence(0,3),"/mnt/"+Character.toLowerCase(os.charAt(0)));
 		File folder = new File(path);
 		System.out.print("Visit subfolders (y/n) >");
 		boolean subs = s.nextLine().equalsIgnoreCase("y");
