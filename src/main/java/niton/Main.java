@@ -18,7 +18,9 @@ import java.util.stream.IntStream;
 
 public class Main {
 	public static void main(String[] args) throws IOException, ImageProcessingException {
-
+		System.out.println("+----------------------+");
+		System.out.println("|continutiy-check 0.1.0|");
+		System.out.println("+----------------------+");
 		Scanner s = new Scanner(System.in);
 		System.out.print("Folder to scan > ");
 		File folder = new File(s.nextLine());
