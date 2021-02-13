@@ -27,7 +27,7 @@ public class Main {
 		String os= System.getProperty("system.os").toLowerCase();
 		if(path.contains(":") && (os.contains("unix") || os.contains("linux") || os.contains("buntu")))
 			os.replace(os.subSequence(0,3),"/mnt/"+Character.toLowerCase(os.charAt(0)));
-		File folder = new File(s.nextLine());
+		File folder = new File(path);
 		System.out.print("Visit subfolders (y/n) >");
 		boolean subs = s.nextLine().equalsIgnoreCase("y");
 		System.out.print("Use indentation (y/n) >");
