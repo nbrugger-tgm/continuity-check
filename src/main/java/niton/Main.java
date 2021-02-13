@@ -25,8 +25,11 @@ public class Main {
 		System.out.print("Folder to scan > ");
 		String path = s.nextLine();
 		String os= System.getProperty("os.name").toLowerCase();
-		if(path.contains(":") && (os.contains("unix") || os.contains("linux") || os.contains("buntu")))
-			os = os.replace(os.subSequence(0,3),"/mnt/"+Character.toLowerCase(os.charAt(0)));
+		System.out.println("OS : "+os);
+		if(path.contains(":") && (os.contains("unix") || os.contains("linux") || os.contains("buntu"))) {
+			path = path.replace(path.subSequence(0, 3), "/mnt/" + Character.toLowerCase(path.charAt(0)));
+			System.out.println("Translated windows path to wsl : "+path);
+		}
 		File folder = new File(path);
 		System.out.print("Visit subfolders (y/n) >");
 		boolean subs = s.nextLine().equalsIgnoreCase("y");
