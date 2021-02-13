@@ -1,3 +1,9 @@
+## v0.2.7 (2021-02-13)
+
+### Fix
+
+- missing trailing slash
+
 ## v0.2.6 (2021-02-13)
 
 ### Fix
