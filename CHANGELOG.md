@@ -1,3 +1,9 @@
+## v0.2.2 (2021-02-13)
+
+### Fix
+
+- make windows path work in wsl
+
 ## v0.2.1 (2021-02-13)
 
 ### Fix
