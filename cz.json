@@ -1,1 +1,1 @@
-{"commitizen": {"name": "cz_conventional_commits", "version": "0.3.0", "tag_format": "v$major.$minor.$patch$prerelease", "update_changelog_on_bump": true, "version_files": ["build.gradle", "src/main/java/niton/Main.java", "README.md"]}}
+{"commitizen": {"name": "cz_conventional_commits", "version": "0.4.0", "tag_format": "v$major.$minor.$patch$prerelease", "update_changelog_on_bump": true, "version_files": ["build.gradle", "src/main/java/niton/Main.java", "README.md"]}}
