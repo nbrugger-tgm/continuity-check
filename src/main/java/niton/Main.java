@@ -84,7 +84,7 @@ public class Main {
 						System.out.println("Error on this file(" + f + ") : " + e);
 				}
 			}
-			DateTimeFormatter form = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
+			DateTimeFormatter form = DateTimeFormatter.ISO_LOCAL_DATE;//DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
 			for (Map.Entry<LocalDate, List<File>> day : map.entrySet()) {
 				try {
 					day.getValue().sort(Comparator.comparingLong(Main::getFileCreationEpoch));
