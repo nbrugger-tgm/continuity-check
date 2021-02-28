@@ -84,16 +84,17 @@ public class Main {
 						System.out.println("Error on this file(" + f + ") : " + e);
 				}
 			}
+
 			DateTimeFormatter form = DateTimeFormatter.ISO_LOCAL_DATE;//DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
 			for (Map.Entry<LocalDate, List<File>> day : map.entrySet()) {
 				try {
 					day.getValue().sort(Comparator.comparingLong(Main::getFileCreationEpoch));
-					System.out.print("\n"+form.format(day.getKey()) + " : "+ (shorter?"\t":"\n"));
-					System.out.println((indent ? "\t" : "") + "Files : " + day.getValue().size());
+					System.out.print(form.format(day.getKey()) + " : "+ (shorter?"\t":"\n"));
+					System.out.print((indent ? "\t" : "") + "Files : " + day.getValue().size()+(shorter?"\t":"\n"));
 					File first = day.getValue().get(0);
 					System.out.print((indent ? "\t" : "") + "First : " + first.getName()+ (shorter?"\t":"\n"));
 					File last = day.getValue().get(day.getValue().size() - 1);
-					System.out.print((indent ? "\t" : "") + "Last  : " + last.getName()+ (shorter?"\t":"\n"));
+					System.out.print((indent ? "\t" : "") + "Last  : " + last.getName()+ (shorter?"\t\t\t\t":"\n"));
 					int start = parse(first), end = parse(last);
 					System.out.println((indent ? "\t" : "") + "Missing: " + (((end - start) + 1) - day
 							.getValue()
