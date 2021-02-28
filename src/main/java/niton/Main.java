@@ -39,6 +39,10 @@ public class Main {
 		boolean shorter = s.nextLine().equalsIgnoreCase("y");
 
 		File[] folders;
+		if(!folder.exists()){
+			System.err.println("Folder "+folder+" not found");
+			return;
+		}
 		if (subs) {
 			folders = folder.listFiles(f -> !f.isFile());
 		} else {
@@ -46,6 +50,8 @@ public class Main {
 		}
 		Arrays.parallelSort(folders, Comparator.comparing(File::getAbsolutePath));
 		for (File file : folders) {
+			if(file.getAbsolutePath().endsWith("System Volume Information"))
+				continue;
 			System.out.print("\nAnalysis > " + file + (shorter?"\t":"\n"));
 			File[] files = file.listFiles(
 					f -> (f.isFile() &&
