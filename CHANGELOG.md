@@ -1,3 +1,13 @@
+## v0.5.0 (2021-02-28)
+
+### Fix
+
+- add error message
+
+### Feat
+
+- rework formatting
+
 ## v0.4.0 (2021-02-27)
 
 ### Feat
